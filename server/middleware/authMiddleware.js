@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const userAuthMiddlware = async (req, res, next) => {
   const { token } = req.cookies;
+
   if (!token) {
     return res
       .status(401)
@@ -12,7 +13,7 @@ export const userAuthMiddlware = async (req, res, next) => {
     if (id) {
       req.userId = { id };
     } else {
-      return res.json({
+      return res.status(401).json({
         success: false,
         message: "Not Authorized Login Again",
       });

@@ -81,12 +81,15 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.TOKEN_KEY, {
       expiresIn: "7d",
     });
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production", // true in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
+    console.log("token made from login " + token);
     return res.status(200).json({ success: true });
   } catch (error) {
     return res.status(404).json({ success: false, message: error.message });
@@ -101,7 +104,7 @@ export const logout = async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    return res.status(200).json({ message: "Logged out" });
+    return res.status(200).json({ success: true, message: "Logged out" });
   } catch (error) {
     return res.status(404).json({ success: false, message: error.message });
   }
@@ -170,7 +173,7 @@ export const verifyEmail = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Email verified successfully" });
   } catch (error) {
-    res.json({ message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 

@@ -1,6 +1,5 @@
 import { UserModel } from "../models/userModels.js";
 
-
 export const getUserData = async (req, res) => {
   const { id } = req.userId;
 

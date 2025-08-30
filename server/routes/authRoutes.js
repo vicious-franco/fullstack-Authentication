@@ -22,4 +22,5 @@ authRouter.route("/is-auth").post(userAuthMiddlware, isAuthenicated);
 authRouter.route("/send-reset-otp").post(resetOtp);
 authRouter.route("/reset-password").post(resetPassword);
 
+
 export default authRouter;
