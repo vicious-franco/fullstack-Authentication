@@ -12,7 +12,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { backendUrl, setIsLoggedin, getUserData } = useContext(MyContext);
+  const { backendUrl, setIsLoggedin, getUserData, setUserData } =
+    useContext(MyContext);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
